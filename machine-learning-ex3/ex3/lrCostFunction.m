@@ -36,15 +36,15 @@ grad = zeros(size(theta));
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
 
+h = sigmoid(X * theta);
+%compare with implementation in ex2 where I used reg_theta
+reg_param = (lambda / (2*m)) * sum(theta(2:end) .^ 2);
+J = (1/m) * sum(-y .* log(h) - (1.-y) .* log(1-h)) + reg_param;
 
-
-
-
-
-
-
-
-
+temp = theta;
+temp(1) = 0;
+%compare with non-vectorized implementation in ex2
+grad = (1/m) .* (X' * (h-y)) + (lambda/m) * temp;
 % =============================================================
 
 grad = grad(:);
