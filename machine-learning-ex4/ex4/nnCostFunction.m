@@ -39,6 +39,18 @@ Theta2_grad = zeros(size(Theta2));
 %         cost function computation is correct by verifying the cost
 %         computed in ex4.m
 %
+X = [ones(m, 1) X];       % 5000x401, add one to each sample
+h = sigmoid(Theta1 * X'); % 25x5000, layer 2 for 5000 features
+h = [ones(1, m); h];      % 26x5000, add bias unit to layer 2
+h = sigmoid(Theta2 * h);  % 10x5000, output unit for all 5000 features
+
+for i=1:m
+  yvec = zeros(num_labels, 1);
+  yvec(y(i)) = 1;   % 10x1
+  hvec = h(:, i);   % 10x1
+  J = J + (1/m) * sum(-yvec .* log(hvec) - (1.-yvec) .* log(1-hvec));
+end
+
 % Part 2: Implement the backpropagation algorithm to compute the gradients
 %         Theta1_grad and Theta2_grad. You should return the partial derivatives of
 %         the cost function with respect to Theta1 and Theta2 in Theta1_grad and
