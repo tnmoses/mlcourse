@@ -71,7 +71,7 @@ J = J + reg_param;
 %               first time.
 %
 for t=1:m
-  a1 = [X(m,:)'];  % set a1 to training example m (bias unit set above), 401x1
+  a1 = [X(t,:)'];  % set a1 to training example m (bias unit set above), 401x1
   z2 = Theta1 * a1;       % 25x1
   a2 = [1; sigmoid(z2)];  % 26x1
   z3 = Theta2 * a2;       % 10x1
