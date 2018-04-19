@@ -70,6 +70,27 @@ J = J + reg_param;
 %               over the training examples if you are implementing it for the 
 %               first time.
 %
+for t=1:m
+  a1 = [X(m,:)'];  % set a1 to training example m (bias unit set above), 401x1
+  z2 = Theta1 * a1;       % 25x1
+  a2 = [1; sigmoid(z2)];  % 26x1
+  z3 = Theta2 * a2;       % 10x1
+  a3 = sigmoid(z3);       % 10x1, output layer
+
+  yvec = zeros(num_labels, 1);
+  yvec(y(t)) = 1;         % 10x1, create output layer from label
+  delta3 = a3 - yvec;     % 10x1
+  delta2 = Theta2' * delta3 .* sigmoidGradient([1; z2]);  % 26x1
+
+  % 25x1 * 1x401 = 25x401
+  Theta1_grad = Theta1_grad + delta2(2:end) * a1';
+  % 10x1 * 1x26 = 10x26
+  Theta2_grad = Theta2_grad + delta3 * a2';
+end
+
+Theta1_grad = (1/m) * Theta1_grad;
+Theta2_grad = (1/m) * Theta2_grad;
+
 % Part 3: Implement regularization with the cost function and gradients.
 %
 %         Hint: You can implement this around the code for
