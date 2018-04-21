@@ -26,9 +26,9 @@ h = X * theta;
 reg_param = (lambda/(2*m)) * sum(theta(2:end) .^2);
 J = (1/(2*m)) * (sum((h-y) .^2)) + reg_param;
 
-
-
-
+temp = theta;
+temp(1) = 0;      % do not regularise theta_0
+grad = (1/m) * (X' * (h-y)) + (lambda/m) * temp;
 
 % =========================================================================
 
