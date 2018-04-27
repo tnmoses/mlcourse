@@ -29,6 +29,12 @@ evaluator = [r(:) s(:)];
 o = size(evaluator, 1);  % number of options
 evaluator = [evaluator zeros(o, 1)];  % initialize error values in third column
 
+for i=1:o
+  fprintf('\nIteration %d', i);
+  model = svmTrain(X, y, evaluator(i, 1), @(x1, x2) gaussianKernel(x1, x2,  evaluator(i, 2)));
+  predictions = svmPredict(model, Xval);
+  evaluator(i, 3) = mean(double(predictions ~= yval));
+end
 
 
 
