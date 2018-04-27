@@ -36,10 +36,9 @@ for i=1:o
   evaluator(i, 3) = mean(double(predictions ~= yval));
 end
 
-
-
-
-
+[minval, row] = min(evaluator(:,3));
+C = evaluator(row, 1);
+sigma = evaluator(row, 2);
 
 % =========================================================================
 
