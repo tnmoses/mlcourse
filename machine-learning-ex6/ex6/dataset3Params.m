@@ -23,6 +23,12 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
+options = [0.01; 0.03; 0.1; 0.3; 1; 3; 10; 30];
+[r, s] = meshgrid(options);
+evaluator = [r(:) s(:)];
+o = size(evaluator, 1);  % number of options
+evaluator = [evaluator zeros(o, 1)];  % initialize error values in third column
+
 
 
 
