@@ -51,6 +51,7 @@ for i=1:num_movies
   temp_y = Y(i, idx);           % 1 x num_users_who_rated_movie_i
   % 1 x num_features * num_features x num_users_who_rated_movie_i
   X_grad(i, :) = (X(i, :) * temp_theta' - temp_y) * temp_theta;
+  X_grad(i, :) = X_grad(i, :) + lambda * X(i, :);
 end
 
 for j=1:num_users
@@ -58,6 +59,7 @@ for j=1:num_users
   temp_theta = Theta(j, :);     % 1 x num_features
   temp_y = Y(idx, j);           % num_movies_rated_by_user x 1
   Theta_grad(j, :) = (temp_theta * X(idx, :)' - temp_y') * X(idx, :);
+  Theta_grad(j, :) = Theta_grad(j, :) + lambda * temp_theta;
 end
 
 
