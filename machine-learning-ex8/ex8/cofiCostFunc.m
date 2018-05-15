@@ -18,7 +18,9 @@ X_grad = zeros(size(X));
 Theta_grad = zeros(size(Theta));
 
 h = X * Theta';
-J = sum(sum((R .* (h-Y)) .^2)) / 2;
+theta_reg = sum(sum(Theta .^ 2)) * lambda/2;
+X_reg = sum(sum(X .^ 2)) * lambda/2;
+J = sum(sum((R .* (h-Y)) .^2)) / 2 + theta_reg + X_reg;
 
 % ====================== YOUR CODE HERE ======================
 % Instructions: Compute the cost function and gradient for collaborative
