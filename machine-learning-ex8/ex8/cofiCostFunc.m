@@ -43,15 +43,20 @@ J = sum(sum((R .* (h-Y)) .^2)) / 2;
 %                     partial derivatives w.r.t. to each element of Theta
 %
 
+for i=1:num_movies
+  idx = find(R(i, :)==1); % idx in matrix for ratings for movie i by each user
+  temp_theta = Theta(idx, :);   % num_users_who_rated_movie_i x num_features
+  temp_y = Y(i, idx);           % 1 x num_users_who_rated_movie_i
+  % 1 x num_features * num_features x num_users_who_rated_movie_i
+  X_grad(i, :) = (X(i, :) * temp_theta' - temp_y) * temp_theta;
+end
 
-
-
-
-
-
-
-
-
+for j=1:num_users
+  idx = find(R(:, j)==1); % idx in matrix for ratings by user i for each movie
+  temp_theta = Theta(j, :);     % 1 x num_features
+  temp_y = Y(idx, j);           % num_movies_rated_by_user x 1
+  Theta_grad(j, :) = (temp_theta * X(idx, :)' - temp_y') * X(idx, :);
+end
 
 
 
